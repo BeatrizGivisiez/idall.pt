@@ -1,14 +1,20 @@
-import React from 'react';
-import { Navigate, Outlet, Link, useLocation } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
-import { LayoutDashboard, LogOut, Store } from 'lucide-react';
+import React from "react";
+import { Navigate, Outlet, Link, useLocation } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
+import { LayoutDashboard, LogOut, Store } from "lucide-react";
 
 export const SuperAdminLayout: React.FC = () => {
   const { user, isSuperAdmin, loading, logout } = useAuth();
   const location = useLocation();
 
-  if (loading) return <div className="flex h-screen items-center justify-center bg-[#F8FAFC]">Carregando...</div>;
-  if (!user) return <Navigate to="/admin/login" state={{ from: location }} replace />;
+  if (loading)
+    return (
+      <div className="flex h-screen items-center justify-center bg-[#F8FAFC]">
+        Carregando...
+      </div>
+    );
+  if (!user)
+    return <Navigate to="/admin/login" state={{ from: location }} replace />;
   if (!isSuperAdmin) return <Navigate to="/admin" replace />;
 
   return (
@@ -19,8 +25,10 @@ export const SuperAdminLayout: React.FC = () => {
             <Store className="h-6 w-6" />
           </div>
           <div>
-            <span className="font-bold text-xl tracking-tight">SaasMenu</span>
-            <p className="text-[10px] font-bold text-orange-500 uppercase tracking-widest">Super Admin</p>
+            <span className="font-bold text-xl tracking-tight">Ordey HQ</span>
+            <p className="text-[10px] font-bold text-orange-500 uppercase tracking-widest">
+              Super Admin
+            </p>
           </div>
         </div>
 
@@ -28,9 +36,9 @@ export const SuperAdminLayout: React.FC = () => {
           <Link
             to="/superadmin"
             className={`flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors ${
-              location.pathname === '/superadmin'
-                ? 'bg-orange-50 text-orange-600'
-                : 'text-slate-500 hover:bg-slate-50'
+              location.pathname === "/superadmin"
+                ? "bg-orange-50 text-orange-600"
+                : "text-slate-500 hover:bg-slate-50"
             }`}
           >
             <LayoutDashboard className="h-5 w-5" />

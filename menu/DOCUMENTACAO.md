@@ -1,4 +1,4 @@
-# SaasMenu — Documentação Técnica Completa
+# Ordery HQ — Documentação Técnica Completa
 
 > Plataforma SaaS de cardápio digital com integração WhatsApp e painel multi-tenant.
 
@@ -32,7 +32,7 @@
 
 ## 1. Visão Geral
 
-O **SaasMenu** é uma plataforma multi-tenant que permite a restaurantes criar e gerenciar um cardápio digital acessível por link ou QR code. Pedidos feitos pelos clientes chegam em tempo real no painel do restaurante e podem ser encaminhados via WhatsApp com um clique.
+O **Ordey HQ** é uma plataforma multi-tenant que permite a restaurantes criar e gerenciar um cardápio digital acessível por link ou QR code. Pedidos feitos pelos clientes chegam em tempo real no painel do restaurante e podem ser encaminhados via WhatsApp com um clique.
 
 ### Perfis de Usuário
 
