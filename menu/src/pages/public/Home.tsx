@@ -10,8 +10,18 @@ function waLink(msg: string) {
 // ── Kanban ──────────────────────────────────────────────────────────────────
 
 const NAMES = [
-  "Marina S.", "Carlos R.", "Ana P.", "João V.", "Bia L.", "Rafa M.",
-  "Letícia", "Diego F.", "Camila", "Téo N.", "Paula", "Vitor",
+  "Marina S.",
+  "Carlos R.",
+  "Ana P.",
+  "João V.",
+  "Bia L.",
+  "Rafa M.",
+  "Letícia",
+  "Diego F.",
+  "Camila",
+  "Téo N.",
+  "Paula",
+  "Vitor",
 ];
 const DISHES: [string, string, number][] = [
   ["2× Burger HQ", "Batata rústica", 56.0],
@@ -60,8 +70,10 @@ function makeOrder(): Order {
 function makeInitialBoard(): Board {
   const board: Board = { novo: [], prep: [], saiu: [], fim: [] };
   const seed: [Status, number][] = [
-    ["novo", 0], ["novo", 1],
-    ["prep", 3], ["prep", 6],
+    ["novo", 0],
+    ["novo", 1],
+    ["prep", 3],
+    ["prep", 6],
     ["saiu", 9],
     ["fim", 0],
   ];
@@ -81,7 +93,8 @@ function stepBoard(prev: Board): Board {
     fim: [...prev.fim],
   };
   while (next.fim.length > 2) next.fim.shift();
-  if (next.saiu.length && Math.random() < 0.7) next.fim.push(next.saiu.shift()!);
+  if (next.saiu.length && Math.random() < 0.7)
+    next.fim.push(next.saiu.shift()!);
   if (next.prep.length && Math.random() < 0.6) {
     const o = next.prep.shift()!;
     o.t = 0;
@@ -96,7 +109,7 @@ function stepBoard(prev: Board): Board {
   STATUS_ORDER.forEach((s) =>
     next[s].forEach((o) => {
       if (s !== "fim") o.t += Math.floor(Math.random() * 2) + 1;
-    })
+    }),
   );
   return next;
 }
@@ -117,7 +130,9 @@ function KanbanBoard({ title }: { title: string }) {
     <div>
       <div className="panel-top">
         <div className="dots">
-          <i /><i /><i />
+          <i />
+          <i />
+          <i />
         </div>
         <span className="ttl">{title}</span>
         <span className="live">
@@ -138,7 +153,11 @@ function KanbanBoard({ title }: { title: string }) {
                   <div className="row1">
                     <span className="oid">#{o.id}</span>
                     <span className="time">
-                      {s === "fim" ? "✓ entregue" : o.t === 0 ? "agora" : `${o.t} min`}
+                      {s === "fim"
+                        ? "✓ entregue"
+                        : o.t === 0
+                          ? "agora"
+                          : `${o.t} min`}
                     </span>
                   </div>
                   <div className="who">{o.who}</div>
@@ -188,7 +207,7 @@ export const Home: React.FC = () => {
           }
         });
       },
-      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
     );
 
     els.forEach((e) => io.observe(e));
@@ -219,7 +238,8 @@ export const Home: React.FC = () => {
       <header className={`hl-nav${navScrolled ? " scrolled" : ""}`}>
         <div className="hl-container hl-nav-inner">
           <span className="hl-logo">
-            <span>Ordery</span><span className="hq">HQ</span>
+            <span>Ordery</span>
+            <span className="hq">HQ</span>
           </span>
 
           <nav className="hl-nav-links">
@@ -233,7 +253,10 @@ export const Home: React.FC = () => {
             <Link className="btn btn-ghost btn-sm" to="/admin/login">
               Entrar
             </Link>
-            <Link className="btn btn-primary btn-sm" to="/admin/login?mode=register">
+            <Link
+              className="btn btn-primary btn-sm"
+              to="/admin/login?mode=register"
+            >
               Criar conta grátis
             </Link>
           </div>
@@ -270,16 +293,22 @@ export const Home: React.FC = () => {
                 </a>
               </div>
               <div className="hero-trust">
-                <span><i className="chk">✓</i> R$ 10 por mês</span>
-                <span><i className="chk">✓</i> Zero comissão por pedido</span>
-                <span><i className="chk">✓</i> Cancele quando quiser</span>
+                <span>
+                  <i className="chk">✓</i> R$ 10 por mês
+                </span>
+                <span>
+                  <i className="chk">✓</i> Zero comissão por pedido
+                </span>
+                <span>
+                  <i className="chk">✓</i> Cancele quando quiser
+                </span>
               </div>
             </div>
 
             <div className="hero-visual reveal">
               <div className="visual-stage">
                 <div className="panel-card">
-                  <KanbanBoard title="Painel HQ — Cozinha do Téo" />
+                  <KanbanBoard title="Painel HQ - Cozinha do Téo" />
                 </div>
                 <div className="phone-card">
                   <div className="phone-notch" />
@@ -340,24 +369,70 @@ export const Home: React.FC = () => {
 
             <div className="compare reveal">
               <div className="compare-card pain">
-                <h3><span className="tag">O caos de hoje</span></h3>
+                <h3>
+                  <span className="tag">O caos de hoje</span>
+                </h3>
                 <ul className="compare-list">
-                  <li><span className="ic">✕</span><span>Cliente pede o cardápio em PDF e some no meio da conversa.</span></li>
-                  <li><span className="ic">✕</span><span>Mensagens perdidas no WhatsApp — pedido trocado ou esquecido.</span></li>
-                  <li><span className="ic">✕</span><span>A cozinha não sabe o que já foi preparado.</span></li>
-                  <li><span className="ic">✕</span><span>Taxas abusivas do marketplace comendo a sua margem.</span></li>
+                  <li>
+                    <span className="ic">✕</span>
+                    <span>
+                      Cliente pede o cardápio em PDF e some no meio da conversa.
+                    </span>
+                  </li>
+                  <li>
+                    <span className="ic">✕</span>
+                    <span>
+                      Mensagens perdidas no WhatsApp, pedido trocado ou
+                      esquecido.
+                    </span>
+                  </li>
+                  <li>
+                    <span className="ic">✕</span>
+                    <span>A cozinha não sabe o que já foi preparado.</span>
+                  </li>
+                  <li>
+                    <span className="ic">✕</span>
+                    <span>
+                      Taxas abusivas do marketplace comendo a sua margem.
+                    </span>
+                  </li>
                 </ul>
               </div>
 
               <div className="vs">vs</div>
 
               <div className="compare-card gain">
-                <h3><span className="tag">O efeito OrderyHQ</span></h3>
+                <h3>
+                  <span className="tag">O efeito OrderyHQ</span>
+                </h3>
                 <ul className="compare-list">
-                  <li><span className="ic">✓</span><span>Cliente abre o QR Code ou o link da bio e vê o cardápio sempre atualizado.</span></li>
-                  <li><span className="ic">✓</span><span>Monta o pedido num carrinho que <strong>não some</strong> se fechar o navegador.</span></li>
-                  <li><span className="ic">✓</span><span>Você muda o status com um clique: Recebido → Preparando → Saiu.</span></li>
-                  <li><span className="ic">✓</span><span>Zero comissão. O lucro do pedido é inteiramente seu.</span></li>
+                  <li>
+                    <span className="ic">✓</span>
+                    <span>
+                      Cliente abre o QR Code ou o link da bio e vê o cardápio
+                      sempre atualizado.
+                    </span>
+                  </li>
+                  <li>
+                    <span className="ic">✓</span>
+                    <span>
+                      Monta o pedido num carrinho que <strong>não some</strong>{" "}
+                      se fechar o navegador.
+                    </span>
+                  </li>
+                  <li>
+                    <span className="ic">✓</span>
+                    <span>
+                      Você muda o status com um clique: Recebido → Preparando →
+                      Saiu.
+                    </span>
+                  </li>
+                  <li>
+                    <span className="ic">✓</span>
+                    <span>
+                      Zero comissão. O lucro do pedido é inteiramente seu.
+                    </span>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -369,10 +444,12 @@ export const Home: React.FC = () => {
           <div className="hl-container">
             <div className="section-head reveal">
               <span className="kicker">Os pilares do QG</span>
-              <h2>Tudo o que o seu negócio precisa para vender comida sozinho.</h2>
+              <h2>
+                Tudo o que o seu negócio precisa para vender comida sozinho.
+              </h2>
               <p>
-                Sem termos técnicos. Só ferramentas que trabalham para você desde
-                o primeiro pedido.
+                Sem termos técnicos. Só ferramentas que trabalham para você
+                desde o primeiro pedido.
               </p>
             </div>
 
@@ -380,23 +457,35 @@ export const Home: React.FC = () => {
               <div className="feature reveal">
                 <span className="fnum">01</span>
                 <div className="ficon">
-                  <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <rect x="3" y="4" width="18" height="16" rx="2" />
                     <path d="M3 9h18M9 9v11M15 9v11" />
                   </svg>
                 </div>
                 <h3>Painel HQ em tempo real</h3>
                 <p>
-                  Cada pedido entra numa coluna e avança com um clique. A cozinha
-                  vê exatamente o que preparar agora — e o cliente é avisado
-                  automaticamente.
+                  Cada pedido entra numa coluna e avança com um clique. A
+                  cozinha vê exatamente o que preparar agora e o cliente é
+                  avisado automaticamente.
                 </p>
               </div>
 
               <div className="feature reveal">
                 <span className="fnum">02</span>
                 <div className="ficon">
-                  <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <path d="M12 3l8 4v6c0 4-3 6.5-8 8-5-1.5-8-4-8-8V7z" />
                     <path d="M9 12l2 2 4-4" />
                   </svg>
@@ -412,15 +501,21 @@ export const Home: React.FC = () => {
               <div className="feature reveal">
                 <span className="fnum">03</span>
                 <div className="ficon">
-                  <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <path d="M21 11.5a8.5 8.5 0 0 1-12.5 7.5L3 21l2-5.5A8.5 8.5 0 1 1 21 11.5z" />
                   </svg>
                 </div>
                 <h3>Carrinho que vira WhatsApp</h3>
                 <p>
-                  Carrinho persistente que não perde o pedido. Quando precisa,
-                  o OrderyHQ gera a mensagem mastigada e pronta para o WhatsApp
-                  da entrega.
+                  Carrinho persistente que não perde o pedido. Quando precisa, o
+                  OrderyHQ gera a mensagem mastigada e pronta para o WhatsApp da
+                  entrega.
                 </p>
               </div>
             </div>
@@ -440,7 +535,7 @@ export const Home: React.FC = () => {
             </div>
 
             <div className="showcase reveal">
-              <KanbanBoard title="Painel HQ — fluxo de pedidos" />
+              <KanbanBoard title="Painel HQ - fluxo de pedidos" />
             </div>
           </div>
         </section>
@@ -450,7 +545,7 @@ export const Home: React.FC = () => {
           <div className="hl-container">
             <div className="section-head center reveal">
               <span className="kicker">Como funciona</span>
-              <h2>Do clique do cliente à cozinha — em 3 passos.</h2>
+              <h2>Do clique do cliente à cozinha em 3 passos.</h2>
             </div>
 
             <div className="steps reveal">
@@ -458,8 +553,8 @@ export const Home: React.FC = () => {
                 <div className="snum">1</div>
                 <h3>O cliente abre o menu</h3>
                 <p>
-                  Pelo QR Code na mesa ou pelo link da bio. Cardápio limpo, com a
-                  sua marca, sempre atualizado.
+                  Pelo QR Code na mesa ou pelo link da bio. Cardápio limpo, com
+                  a sua marca, sempre atualizado.
                 </p>
                 <div className="arrow">→</div>
               </div>
@@ -467,8 +562,8 @@ export const Home: React.FC = () => {
                 <div className="snum">2</div>
                 <h3>Monta o pedido no carrinho</h3>
                 <p>
-                  Escolhe os produtos num carrinho persistente. Combos e promoções
-                  aparecem em destaque.
+                  Escolhe os produtos num carrinho persistente. Combos e
+                  promoções aparecem em destaque.
                 </p>
                 <div className="arrow">→</div>
               </div>
@@ -476,8 +571,8 @@ export const Home: React.FC = () => {
                 <div className="snum">3</div>
                 <h3>Você comanda o status</h3>
                 <p>
-                  O pedido cai no Painel HQ. Você avança o status com um clique e
-                  o cliente é avisado na hora.
+                  O pedido cai no Painel HQ. Você avança o status com um clique
+                  e o cliente é avisado na hora.
                 </p>
               </div>
             </div>
@@ -508,15 +603,29 @@ export const Home: React.FC = () => {
                   Ideal para testar a operação e ver o fluxo acontecer.
                 </p>
                 <ul className="price-feats">
-                  <li><span className="chk">✓</span><span>Cardápio digital com a sua marca</span></li>
-                  <li><span className="chk">✓</span><span>Painel HQ em tempo real</span></li>
-                  <li><span className="chk">✓</span><span>Carrinho persistente + WhatsApp</span></li>
-                  <li><span className="chk">✓</span><span>Cancele quando quiser</span></li>
+                  <li>
+                    <span className="chk">✓</span>
+                    <span>Cardápio digital com a sua marca</span>
+                  </li>
+                  <li>
+                    <span className="chk">✓</span>
+                    <span>Painel HQ em tempo real</span>
+                  </li>
+                  <li>
+                    <span className="chk">✓</span>
+                    <span>Carrinho persistente + WhatsApp</span>
+                  </li>
+                  <li>
+                    <span className="chk">✓</span>
+                    <span>Cancele quando quiser</span>
+                  </li>
                 </ul>
                 <a
                   className="btn btn-ghost btn-lg"
                   style={{ width: "100%" }}
-                  href={waLink("Quero ativar o plano mensal de R$ 10 do OrderyHQ.")}
+                  href={waLink(
+                    "Quero ativar o plano mensal de R$ 10 do OrderyHQ.",
+                  )}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -525,7 +634,9 @@ export const Home: React.FC = () => {
               </div>
 
               <div className="price-card featured">
-                <span className="price-badge">Economize 17% · 2 meses grátis</span>
+                <span className="price-badge">
+                  Economize 17% · 2 meses grátis
+                </span>
                 <span className="plan">Anual</span>
                 <div className="amount">
                   <span className="cur">R$</span>
@@ -533,18 +644,33 @@ export const Home: React.FC = () => {
                   <span className="per">/ ano</span>
                 </div>
                 <p className="sub">
-                  Para quem já entendeu que a Central de Comando é indispensável.
+                  Para quem já entendeu que a Central de Comando é
+                  indispensável.
                 </p>
                 <ul className="price-feats">
-                  <li><span className="chk">✓</span><span>Tudo do plano mensal</span></li>
-                  <li><span className="chk">✓</span><span>2 meses grátis no ano</span></li>
-                  <li><span className="chk">✓</span><span>Prioridade no suporte</span></li>
-                  <li><span className="chk">✓</span><span>Customização Whitelabel completa</span></li>
+                  <li>
+                    <span className="chk">✓</span>
+                    <span>Tudo do plano mensal</span>
+                  </li>
+                  <li>
+                    <span className="chk">✓</span>
+                    <span>2 meses grátis no ano</span>
+                  </li>
+                  <li>
+                    <span className="chk">✓</span>
+                    <span>Prioridade no suporte</span>
+                  </li>
+                  <li>
+                    <span className="chk">✓</span>
+                    <span>Customização Whitelabel completa</span>
+                  </li>
                 </ul>
                 <a
                   className="btn btn-primary btn-lg"
                   style={{ width: "100%" }}
-                  href={waLink("Quero aproveitar o desconto e ativar o plano anual de R$ 100 do OrderyHQ.")}
+                  href={waLink(
+                    "Quero aproveitar o desconto e ativar o plano anual de R$ 100 do OrderyHQ.",
+                  )}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -561,8 +687,7 @@ export const Home: React.FC = () => {
           <div className="hl-container">
             <div className="final-cta reveal">
               <span className="eyebrow">
-                <span className="dot" />
-                5 minutos para começar
+                <span className="dot" />5 minutos para começar
               </span>
               <h2>Assuma o comando dos seus pedidos.</h2>
               <p>
@@ -586,10 +711,12 @@ export const Home: React.FC = () => {
           <div className="footer-inner">
             <div>
               <span className="hl-logo">
-                <span>Ordery</span><span className="hq">HQ</span>
+                <span>Ordery</span>
+                <span className="hq">HQ</span>
               </span>
               <p className="tagline">
-                A central de comando para quem vende comida. Sem comissões, sem caos.
+                A central de comando para quem vende comida. Sem comissões, sem
+                caos.
               </p>
             </div>
             <div className="footer-cols">
@@ -619,7 +746,10 @@ export const Home: React.FC = () => {
             </div>
           </div>
           <div className="footer-bottom">
-            <span>© {new Date().getFullYear()} OrderyHQ. Feito para quem vende comida.</span>
+            <span>
+              © {new Date().getFullYear()} OrderyHQ. Feito para quem vende
+              comida.
+            </span>
             <span>Whitelabel · Sem comissão por pedido</span>
           </div>
         </div>
