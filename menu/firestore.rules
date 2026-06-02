@@ -42,6 +42,11 @@ service cloud.firestore {
         allow create: if true;
         allow read, update, delete: if isOwner(tenantId);
       }
+
+      // SALES Subcollection
+      match /sales/{saleId} {
+        allow read, write: if isOwner(tenantId);
+      }
     }
   }
 }

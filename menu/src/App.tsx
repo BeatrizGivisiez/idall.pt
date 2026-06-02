@@ -23,6 +23,7 @@ import { RestaurantMenu } from "./pages/public/RestaurantMenu";
 import { Home } from "./pages/public/Home";
 import { SuperAdminLayout } from "./components/superadmin/SuperAdminLayout";
 import { SuperAdminDashboard } from "./pages/superadmin/SuperAdminDashboard";
+import { CreateRestaurant } from "./pages/superadmin/CreateRestaurant";
 import { Times } from "./pages/admin/Times";
 import { Sales } from "./pages/admin/Sales";
 
@@ -50,6 +51,7 @@ export default function App() {
             {/* Super Admin Routes */}
             <Route path="/superadmin" element={<SuperAdminLayout />}>
               <Route index element={<SuperAdminDashboard />} />
+              <Route path="new" element={<CreateRestaurant />} />
             </Route>
           </Routes>
         </Router>

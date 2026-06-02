@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigate, Outlet, Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
-import { LayoutDashboard, LogOut, Store } from "lucide-react";
+import { LayoutDashboard, LogOut, Store, PlusCircle } from "lucide-react";
 
 export const SuperAdminLayout: React.FC = () => {
   const { user, isSuperAdmin, loading, logout } = useAuth();
@@ -43,6 +43,17 @@ export const SuperAdminLayout: React.FC = () => {
           >
             <LayoutDashboard className="h-5 w-5" />
             Restaurantes
+          </Link>
+          <Link
+            to="/superadmin/new"
+            className={`flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors ${
+              location.pathname === "/superadmin/new"
+                ? "bg-orange-50 text-orange-600"
+                : "text-slate-500 hover:bg-slate-50"
+            }`}
+          >
+            <PlusCircle className="h-5 w-5" />
+            Novo Restaurante
           </Link>
         </nav>
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Navigate, Outlet, Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import {
@@ -11,6 +11,8 @@ import {
   Sun,
   Moon,
   TrendingUp,
+  AlignJustify,
+  X,
 } from "lucide-react";
 import { useTheme } from "../../hooks/useTheme";
 
@@ -18,6 +20,7 @@ export const AdminLayout: React.FC = () => {
   const { user, tenant, loading, logout } = useAuth();
   const location = useLocation();
   const { isDark, toggle } = useTheme();
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   if (loading) {
     return (
@@ -39,8 +42,10 @@ export const AdminLayout: React.FC = () => {
     { name: "Configurações", path: "/admin/settings", icon: Settings },
   ];
 
+  const closeDrawer = () => setDrawerOpen(false);
+
   return (
-    <div className={`flex h-screen bg-bg font-sans text-content overflow-hidden${!isDark ? ' light' : ''}`}>
+    <div className={`flex h-screen bg-bg font-sans text-content overflow-hidden${!isDark ? " light" : ""}`}>
       {/* Sidebar - Desktop */}
       <aside className="hidden w-64 border-r border-line bg-surface md:flex flex-col">
         <div className="p-6 flex items-center gap-3">
@@ -91,17 +96,97 @@ export const AdminLayout: React.FC = () => {
         </div>
       </aside>
 
+      {/* Mobile Drawer Overlay */}
+      {drawerOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/50 md:hidden"
+          onClick={closeDrawer}
+        />
+      )}
+
+      {/* Mobile Drawer */}
+      <aside
+        className={`fixed inset-y-0 left-0 z-50 w-72 bg-surface border-r border-line flex flex-col transform transition-transform duration-300 ease-in-out md:hidden ${
+          drawerOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        <div className="p-5 flex items-center justify-between border-b border-line">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 bg-accent rounded-xl flex items-center justify-center text-accent-ink">
+              <Store className="h-5 w-5" />
+            </div>
+            <span className="font-bold text-lg tracking-tight text-content">Ordery HQ</span>
+          </div>
+          <button
+            onClick={closeDrawer}
+            className="w-8 h-8 flex items-center justify-center rounded-lg text-faint hover:text-content hover:bg-elevated transition-colors"
+          >
+            <X className="h-5 w-5" />
+          </button>
+        </div>
+
+        <nav className="flex-1 px-4 space-y-1 mt-4 overflow-y-auto">
+          {navItems.map((item) => {
+            const isActive = location.pathname === item.path;
+            const Icon = item.icon;
+            return (
+              <Link
+                key={item.name}
+                to={item.path}
+                onClick={closeDrawer}
+                className={`flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors ${
+                  isActive
+                    ? "bg-accent/12 text-accent"
+                    : "text-muted hover:bg-elevated hover:text-content"
+                }`}
+              >
+                <Icon className={`h-5 w-5 ${isActive ? "text-accent" : "text-faint"}`} />
+                {item.name}
+              </Link>
+            );
+          })}
+        </nav>
+
+        <div className="p-4 border-t border-line space-y-3">
+          {tenant?.slug && (
+            <Link
+              to={`/r/${tenant.slug}`}
+              target="_blank"
+              onClick={closeDrawer}
+              className="bg-elevated border border-line-2 hover:border-accent/40 transition-colors w-full flex items-center justify-center rounded-lg py-2 text-xs font-bold text-muted hover:text-accent gap-2"
+            >
+              VER CARDÁPIO DA LOJA
+            </Link>
+          )}
+          <button
+            onClick={logout}
+            className="flex w-full items-center justify-center gap-2 rounded-lg py-2 text-xs font-bold text-warn hover:bg-warn/12 transition-colors"
+          >
+            <LogOut className="h-4 w-4" />
+            Sair
+          </button>
+        </div>
+      </aside>
+
       {/* Main Content */}
       <main className="flex-1 flex flex-col overflow-hidden">
         {/* Mobile Header */}
         <header className="flex h-16 items-center justify-between border-b border-line bg-surface px-4 md:hidden">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center text-accent-ink">
+          <button
+            onClick={() => setDrawerOpen(true)}
+            className="w-9 h-9 flex items-center justify-center rounded-lg text-muted hover:text-content hover:bg-elevated transition-colors"
+          >
+            <AlignJustify className="h-5 w-5" />
+          </button>
+
+          <div className="flex items-center gap-2">
+            <div className="w-7 h-7 bg-accent rounded-lg flex items-center justify-center text-accent-ink">
               <Store className="h-4 w-4" />
             </div>
-            <span className="text-lg font-bold text-content">Ordery HQ</span>
+            <span className="text-base font-bold text-content">Ordery HQ</span>
           </div>
-          <div className="w-8 h-8 rounded-full bg-accent/12 border border-line flex items-center justify-center">
+
+          <div className="w-9 h-9 rounded-full bg-accent/12 border border-line flex items-center justify-center">
             <span className="text-[10px] font-bold text-accent">
               {user.email?.charAt(0).toUpperCase()}
             </span>
@@ -123,7 +208,7 @@ export const AdminLayout: React.FC = () => {
             </div>
             <button
               onClick={toggle}
-              title={isDark ? 'Modo claro' : 'Modo escuro'}
+              title={isDark ? "Modo claro" : "Modo escuro"}
               className="w-9 h-9 rounded-lg border border-line flex items-center justify-center text-muted hover:text-content hover:bg-elevated transition-colors"
             >
               {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
@@ -138,26 +223,6 @@ export const AdminLayout: React.FC = () => {
           <Outlet />
         </div>
       </main>
-
-      {/* Mobile Nav - Bottom */}
-      <nav className="fixed bottom-0 z-50 flex w-full border-t border-line bg-surface pb-safe md:hidden">
-        {navItems.map((item) => {
-          const isActive = location.pathname === item.path;
-          const Icon = item.icon;
-          return (
-            <Link
-              key={item.name}
-              to={item.path}
-              className={`flex flex-1 flex-col items-center justify-center py-3 text-xs font-medium ${
-                isActive ? "text-accent" : "text-faint"
-              }`}
-            >
-              <Icon className="mb-1 h-5 w-5" />
-              {item.name}
-            </Link>
-          );
-        })}
-      </nav>
     </div>
   );
 };

@@ -253,12 +253,12 @@ export const Home: React.FC = () => {
             <Link className="btn btn-ghost btn-sm" to="/admin/login">
               Entrar
             </Link>
-            <Link
+            {/* <Link
               className="btn btn-primary btn-sm"
               to="/admin/login?mode=register"
             >
               Criar conta grátis
-            </Link>
+            </Link> */}
           </div>
         </div>
       </header>
@@ -294,7 +294,7 @@ export const Home: React.FC = () => {
               </div>
               <div className="hero-trust">
                 <span>
-                  <i className="chk">✓</i> R$ 10 por mês
+                  <i className="chk">✓</i> R$ 59,90 por mês
                 </span>
                 <span>
                   <i className="chk">✓</i> Zero comissão por pedido
@@ -596,7 +596,7 @@ export const Home: React.FC = () => {
                 <span className="plan">Mensal</span>
                 <div className="amount">
                   <span className="cur">R$</span>
-                  <span className="val">10</span>
+                  <span className="val">59,90</span>
                   <span className="per">/ mês</span>
                 </div>
                 <p className="sub">
@@ -624,7 +624,7 @@ export const Home: React.FC = () => {
                   className="btn btn-ghost btn-lg"
                   style={{ width: "100%" }}
                   href={waLink(
-                    "Quero ativar o plano mensal de R$ 10 do OrderyHQ.",
+                    "Quero ativar o plano mensal de R$ 59,90 do OrderyHQ.",
                   )}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -635,12 +635,12 @@ export const Home: React.FC = () => {
 
               <div className="price-card featured">
                 <span className="price-badge">
-                  Economize 17% · 2 meses grátis
+                  Economize 30% · no plano anual
                 </span>
                 <span className="plan">Anual</span>
                 <div className="amount">
                   <span className="cur">R$</span>
-                  <span className="val">100</span>
+                  <span className="val">500,00</span>
                   <span className="per">/ ano</span>
                 </div>
                 <p className="sub">
@@ -654,7 +654,7 @@ export const Home: React.FC = () => {
                   </li>
                   <li>
                     <span className="chk">✓</span>
-                    <span>2 meses grátis no ano</span>
+                    <span>Economize R$ 218 por ano</span>
                   </li>
                   <li>
                     <span className="chk">✓</span>
@@ -669,14 +669,14 @@ export const Home: React.FC = () => {
                   className="btn btn-primary btn-lg"
                   style={{ width: "100%" }}
                   href={waLink(
-                    "Quero aproveitar o desconto e ativar o plano anual de R$ 100 do OrderyHQ.",
+                    "Quero aproveitar o desconto e ativar o plano anual de R$ 500 do OrderyHQ.",
                   )}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   Ativar minha Central de Comando
                 </a>
-                <p className="equiv">≈ menos de R$ 8,40 por mês</p>
+                <p className="equiv">≈ R$ 41,67 por mês</p>
               </div>
             </div>
           </div>

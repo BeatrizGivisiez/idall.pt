@@ -242,17 +242,18 @@ export const Dashboard: React.FC = () => {
     try {
       await addDoc(collection(db, `tenants/${tenant.id}/sales`), {
         orderId: order.id,
-        customerName: order.customerName,
-        customerPhone: order.customerPhone,
-        customerAddress: order.customerAddress,
-        items: order.items,
-        total: order.total,
-        createdAt: order.createdAt,
+        customerName: order.customerName || '',
+        customerPhone: order.customerPhone || '',
+        customerAddress: order.customerAddress || '',
+        items: order.items || [],
+        total: order.total || 0,
+        createdAt: order.createdAt || Date.now(),
         completedAt: Date.now(),
       });
       await updateDoc(doc(db, `tenants/${tenant.id}/orders`, order.id), { archived: true });
       toast.success('Pedido arquivado nas vendas');
-    } catch {
+    } catch (err) {
+      console.error('Archive error:', err);
       toast.error('Erro ao arquivar pedido');
     }
   };
