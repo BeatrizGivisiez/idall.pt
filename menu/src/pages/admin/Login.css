@@ -226,13 +226,19 @@
 }
 @media (max-width: 940px) {
   .auth-form-col {
-    justify-content: flex-start;
-    padding-top: 28px;
+    align-items: flex-start;
+    padding: 12px 20px 40px;
   }
 }
 .auth-card { width: 100%; max-width: 440px; }
 .auth-card-top { text-align: center; margin-bottom: 32px; }
 .auth-logo { display: inline-flex; align-items: center; gap: 7px; margin-bottom: 26px; }
+@media (max-width: 940px) {
+  .auth-card-top { margin-bottom: 18px; }
+  .auth-logo { margin-bottom: 10px; }
+  .auth-card h1 { font-size: 24px; }
+  .auth-card .sub { font-size: 14px; }
+}
 
 .auth-card h1 { font-size: clamp(28px, 4vw, 38px); margin-bottom: 10px; }
 .auth-card .sub { color: var(--muted); font-size: 16px; }
