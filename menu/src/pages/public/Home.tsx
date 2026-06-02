@@ -674,7 +674,7 @@ export const Home: React.FC = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Ativar minha Central de Comando
+                  Ativar Central de Comando
                 </a>
                 <p className="equiv">≈ R$ 41,67 por mês</p>
               </div>
