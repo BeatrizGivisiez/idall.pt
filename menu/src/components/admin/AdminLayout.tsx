@@ -147,7 +147,7 @@ export const AdminLayout: React.FC = () => {
           })}
         </nav>
 
-        <div className="p-4 border-t border-line space-y-3">
+        <div className="p-4 border-t border-line space-y-2">
           {tenant?.slug && (
             <Link
               to={`/r/${tenant.slug}`}
@@ -158,6 +158,13 @@ export const AdminLayout: React.FC = () => {
               VER CARDÁPIO DA LOJA
             </Link>
           )}
+          <button
+            onClick={toggle}
+            className="flex w-full items-center justify-center gap-2 rounded-lg py-2 text-xs font-bold text-muted hover:bg-elevated transition-colors"
+          >
+            {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            {isDark ? "Modo claro" : "Modo escuro"}
+          </button>
           <button
             onClick={logout}
             className="flex w-full items-center justify-center gap-2 rounded-lg py-2 text-xs font-bold text-warn hover:bg-warn/12 transition-colors"

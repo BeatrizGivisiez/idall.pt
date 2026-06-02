@@ -61,7 +61,14 @@ export const SuperAdminLayout: React.FC = () => {
   );
 
   const SidebarBottom = ({ onClick }: { onClick?: () => void }) => (
-    <div className="p-4 border-t border-line">
+    <div className="p-4 border-t border-line space-y-2">
+      <button
+        onClick={toggle}
+        className="flex w-full items-center justify-center gap-2 rounded-lg py-2 text-xs font-bold text-muted hover:bg-elevated transition-colors"
+      >
+        {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+        {isDark ? "Modo claro" : "Modo escuro"}
+      </button>
       <button
         onClick={() => { logout(); onClick?.(); }}
         className="flex w-full items-center justify-center gap-2 rounded-lg py-2 text-xs font-bold text-warn hover:bg-warn/12 transition-colors"
