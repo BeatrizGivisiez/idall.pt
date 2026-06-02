@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { collection, query, orderBy, onSnapshot, doc, updateDoc, addDoc } from 'firebase/firestore';
+import { collection, query, orderBy, onSnapshot, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../services/firebase';
 import { useAuth } from '../../contexts/AuthContext';
 import { Order, OrderStatus } from '../../types';
@@ -241,18 +241,11 @@ export const Dashboard: React.FC = () => {
   const archiveOrder = async (order: Order) => {
     if (!tenant) return;
     try {
-      await addDoc(collection(db, `tenants/${tenant.id}/sales`), {
-        orderId: order.id,
-        customerName: order.customerName || '',
-        customerPhone: order.customerPhone || '',
-        customerAddress: order.customerAddress || '',
-        items: order.items || [],
-        total: order.total || 0,
-        createdAt: order.createdAt || Date.now(),
+      await updateDoc(doc(db, `tenants/${tenant.id}/orders`, order.id), {
+        archived: true,
         completedAt: Date.now(),
       });
-      await updateDoc(doc(db, `tenants/${tenant.id}/orders`, order.id), { archived: true });
-      toast.success('Pedido arquivado nas vendas');
+      toast.success('Pedido concluído!');
     } catch (err) {
       console.error('Archive error:', err);
       toast.error('Erro ao arquivar pedido');

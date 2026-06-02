@@ -114,10 +114,27 @@ export const Login: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [authError, setAuthError] = useState("");
   const navigate = useNavigate();
 
   function clearErr(field: string) {
+    setAuthError("");
     setErrors(prev => { const next = { ...prev }; delete next[field]; return next; });
+  }
+
+  function getAuthErrorMessage(code: string): string {
+    switch (code) {
+      case "auth/invalid-credential":
+      case "auth/wrong-password":
+      case "auth/user-not-found":
+        return "E-mail ou senha incorretos. Verifique os dados e tente novamente.";
+      case "auth/too-many-requests":
+        return "Muitas tentativas falhadas. Aguarde alguns minutos antes de tentar novamente.";
+      case "auth/user-disabled":
+        return "Esta conta foi desativada. Entre em contacto com o suporte.";
+      default:
+        return "Não foi possível entrar. Verifique os seus dados e tente novamente.";
+    }
   }
 
   function validate() {
@@ -150,7 +167,7 @@ export const Login: React.FC = () => {
       setSuccess(true);
       setTimeout(() => navigate(cred.user.email === SUPER_ADMIN_EMAIL ? "/superadmin" : "/admin"), 1300);
     } catch (error: any) {
-      toast.error(error.message || "Erro na autenticação");
+      setAuthError(getAuthErrorMessage(error.code));
     } finally {
       setLoading(false);
     }
@@ -229,6 +246,13 @@ export const Login: React.FC = () => {
                     </div>
                     {errors.password && <div className="field-err">{errors.password}</div>}
                   </div>
+
+                  {authError && (
+                    <div className="auth-alert">
+                      <span className="auth-alert-icon">!</span>
+                      {authError}
+                    </div>
+                  )}
 
                   <div className="auth-meta">
                     <label className="remember">
